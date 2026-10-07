@@ -13,6 +13,7 @@ import java.awt.Color;
 /**
    A three-dimensional wireframe model of the letter P.
 
+   Front vertex numbering (schematic; coordinates below are exact):
   1______________ 2
    |             \
    |   8_______ 9 \ 3
@@ -23,6 +24,10 @@ import java.awt.Color;
    |    |         5
    |____|
   0     7
+
+   The front outer outline follows 0 through 7, then closes back to 0.
+   The front inner opening follows 8 through 11, then closes back to 8.
+   Back vertices have the same numbering plus 12.
 */
 public class P extends Model
 {
@@ -34,44 +39,44 @@ public class P extends Model
       super("P");
 
       // Create the front face vertices.
-      addVertex(new Vertex(0.00, 0.00, 0.0),
-                new Vertex(0.00, 1.00, 0.0),
-                new Vertex(0.75, 1.00, 0.0),
-                new Vertex(1.00, 0.8,  0.0),
-                new Vertex(1.00, 0.6,  0.0),
-                new Vertex(0.75, 0.4,  0.0),
-                new Vertex(0.25, 0.4,  0.0),
-                new Vertex(0.25, 0.0,  0.0));
+      // Front outer boundary.
+      addVertex(new Vertex(0.00, 0.00, 0.0), // 0
+                new Vertex(0.00, 1.00, 0.0), // 1
+                new Vertex(0.75, 1.00, 0.0), // 2
+                new Vertex(1.00, 0.8,  0.0), // 3
+                new Vertex(1.00, 0.6,  0.0), // 4
+                new Vertex(0.75, 0.4,  0.0), // 5
+                new Vertex(0.25, 0.4,  0.0), // 6
+                new Vertex(0.25, 0.0,  0.0)); // 7
 
-      addVertex(new Vertex(0.25, 0.8,  0.0),
-                new Vertex(0.75, 0.8,  0.0),
-                new Vertex(0.75, 0.6,  0.0),
-                new Vertex(0.25, 0.6,  0.0));
+      // Front inner opening.
+      addVertex(new Vertex(0.25, 0.8,  0.0), // 8
+                new Vertex(0.75, 0.8,  0.0), // 9
+                new Vertex(0.75, 0.6,  0.0), // 10
+                new Vertex(0.25, 0.6,  0.0)); // 11
 
       // Create the back face vertices.
-      addVertex(new Vertex(0.00, 0.00, -0.25),
-                new Vertex(0.00, 1.00, -0.25),
-                new Vertex(0.75, 1.00, -0.25),
-                new Vertex(1.00, 0.80, -0.25),
-                new Vertex(1.00, 0.60, -0.25),
-                new Vertex(0.75, 0.40, -0.25),
-                new Vertex(0.25, 0.40, -0.25),
-                new Vertex(0.25, 0.00, -0.25));
+      // Back outer boundary.
+      addVertex(new Vertex(0.00, 0.00, -0.25), // 12
+                new Vertex(0.00, 1.00, -0.25), // 13
+                new Vertex(0.75, 1.00, -0.25), // 14
+                new Vertex(1.00, 0.80, -0.25), // 15
+                new Vertex(1.00, 0.60, -0.25), // 16
+                new Vertex(0.75, 0.40, -0.25), // 17
+                new Vertex(0.25, 0.40, -0.25), // 18
+                new Vertex(0.25, 0.00, -0.25)); // 19
 
-      addVertex(new Vertex(0.25, 0.80, -0.25),
-                new Vertex(0.75, 0.80, -0.25),
-                new Vertex(0.75, 0.60, -0.25),
-                new Vertex(0.25, 0.60, -0.25));
+      // Back inner opening.
+      addVertex(new Vertex(0.25, 0.80, -0.25), // 20
+                new Vertex(0.75, 0.80, -0.25), // 21
+                new Vertex(0.75, 0.60, -0.25), // 22
+                new Vertex(0.25, 0.60, -0.25)); // 23
 
-
-      // Create the Color objects.
+      // Color indices: 0 = green, 1 = red, 2 = magenta.
       addColor(Color.green, Color.red, Color.magenta);
 
-
-
-      // Create the front face line segments
-      // (you need to add the Color indices!).
-      // Front outer boundary 
+      // Create the front face line segments.
+      // Front outer boundary.
       addPrimitive(new LineSegment(0, 1, 0, 0),
                    new LineSegment(1, 2, 2, 2),
                    new LineSegment(2, 3, 2, 2),
@@ -81,7 +86,7 @@ public class P extends Model
                    new LineSegment(6, 7, 2, 2),
                    new LineSegment(7, 0, 2, 2));
 
-      // Front inner boundary
+      // Front inner opening.
       addPrimitive(new LineSegment( 8,  9, 2, 2),
                    new LineSegment( 9, 10, 2, 2),
                    new LineSegment(10, 11, 2, 2),
@@ -104,7 +109,8 @@ public class P extends Model
                    new LineSegment(22, 23, 2, 2),
                    new LineSegment(23, 20, 2, 2));
 
-            // Connect the outer boundaries.
+      // Connect each front vertex to its matching back vertex.
+      // Connect the outer boundaries.
       addPrimitive(new LineSegment(0, 12, 0, 0),
                    new LineSegment(1, 13, 0, 0),
                    new LineSegment(2, 14, 2, 2),
@@ -119,13 +125,5 @@ public class P extends Model
                    new LineSegment( 9, 21, 2, 2),
                    new LineSegment(10, 22, 2, 2),
                    new LineSegment(11, 23, 2, 2));
-
-      
-
-
-
-      // Create the front face to back face line segments.
-
-
    }
 }
